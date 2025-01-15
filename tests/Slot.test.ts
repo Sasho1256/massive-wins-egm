@@ -239,7 +239,7 @@ describe('Slot Machine', () => {
         expect(logSpy).toHaveBeenCalledTimes(9);
 
         logSpy.mockRestore();
-    });    
+    });
 
     test('Handles very large payout amounts', () => {
         config.symbols[9] = [0, 0, 10000, 20000, 50000];
@@ -250,11 +250,45 @@ describe('Slot Machine', () => {
             [9, 9, 9],
             [9, 9, 9],
         ];
-    
+        
         const payouts = (slot as any).calculateLinePayouts(mockResult);
         const totalPayout = (slot as any).getTotalPayout(payouts);
-    
-        expect(totalPayout).toBe(50000 * 5); // Check if the total payout calculation handles large values
+        
+        config.symbols[9] = [0, 0, 300, 600, 2000];
+
+        expect(totalPayout).toBe(50000 * 5);
     });
-    
+
+    test('getWinsCount counts correctly', () => {
+        const mockResult = [
+            [9, 9, 9],
+            [9, 9, 9],
+            [9, 9, 9],
+            [9, 9, 9],
+            [9, 9, 9],
+        ];
+
+        const payouts = (slot as any).calculateLinePayouts(mockResult);
+        (slot as any).getTotalPayout(payouts);
+        (slot as any).getTotalPayout(payouts);
+
+        expect(slot.getWinsCount()).toBe(2);
+    });
+
+    test('getTotalWinAmount accumulates total amount correctly', () => {
+        const mockResult = [
+            [9, 9, 9],
+            [9, 9, 9],
+            [9, 9, 9],
+            [9, 9, 9],
+            [9, 9, 9],
+        ];
+
+        const payouts = (slot as any).calculateLinePayouts(mockResult);
+        (slot as any).getTotalPayout(payouts);
+        (slot as any).getTotalPayout(payouts);
+
+        expect(slot.getTotalWinAmount()).toBe(2000*5*2);
+    });
+
 });
