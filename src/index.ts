@@ -11,11 +11,26 @@ const rl = readline.createInterface({
 });
 
 const play = () => {
-    rl.question("Let's play! [<Enter> = spin / 'x' = exit] ", (answer) => {
-        // console.clear();
+    rl.question("Let's play! [<Enter> = spin / 'sim' = simulation script / 'x' = exit] ", (answer) => {
+        console.clear();
         switch (answer.toLowerCase()) {
             case '':
                 slotGame.spin();
+                play();
+                break;
+            case 'sim':
+                const iterations = 500
+                const startTime = performance.now();
+                for (let i = 0; i < iterations; i++) {
+                    slotGame.spin()
+                    console.clear();
+                }
+                const endTime = performance.now();
+                console.log('Simulations count: ' + iterations);
+                console.log('Times won: ' + slotGame.getWinsCount());
+                console.log('Total payout: ' + slotGame.getTotalWinAmount());
+                console.log('Win rate: ' + Math.round(slotGame.getWinsCount() / iterations * 100) + '%');
+                console.log('Execution time: ' + (endTime - startTime) + ' ms');
                 play();
                 break;
             case 'x':

@@ -1,13 +1,24 @@
 import config from './config';
-import { LinePayout } from './LinePayout';
+import { LinePayout } from './interfaces/LinePayout';
 
 class Slot {
     private reels: number[][];
     private lines: number[][];
+    private winsCount: number;
+    private totalWinAmount: number;
 
     constructor() {
         this.reels = config.reels;
         this.lines = config.lines;
+        this.winsCount = 0;
+        this.totalWinAmount = 0;
+    }
+
+    public getWinsCount(): number {
+        return this.winsCount;
+    }
+    public getTotalWinAmount(): number {
+        return this.totalWinAmount;
     }
 
     private getRandomReel(reelIndex: number): number[] {
@@ -92,6 +103,11 @@ class Slot {
         payouts.forEach(payout => {
             totalPayout += payout.amount;
         });
+
+        if (totalPayout > 0) {
+            this.totalWinAmount += totalPayout;
+            this.winsCount++;
+        }
 
         return totalPayout;
     }
