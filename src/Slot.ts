@@ -7,6 +7,10 @@ class Slot {
     private winsCount: number;
     private totalWinAmount: number;
 
+    /**
+     * Initializes a new instance of the Slot class.
+     * Sets up the reels, lines, and tracks win counts and total winnings.
+     */
     constructor() {
         this.reels = config.reels;
         this.lines = config.lines;
@@ -14,13 +18,28 @@ class Slot {
         this.totalWinAmount = 0;
     }
 
+    /**
+     * Retrieves the total number of wins.
+     * @returns {number} The total number of wins recorded.
+     */
     public getWinsCount(): number {
         return this.winsCount;
     }
+
+    /**
+     * Retrieves the total winnings amount.
+     * @returns {number} The total amount won by the player.
+     */
     public getTotalWinAmount(): number {
         return this.totalWinAmount;
     }
 
+    /**
+     * Generates a random sequence of symbols for a specific reel.
+     * Wraps around the reel array when necessary.
+     * @param {number} reelIndex - The index of the reel to randomize.
+     * @returns {number[]} An array representing the randomly generated reel symbols.
+     */
     private getRandomReel(reelIndex: number): number[] {
         const reel = this.reels[reelIndex];
         const startIndex = Math.floor(Math.random() * reel.length);
@@ -33,6 +52,12 @@ class Slot {
         return reelArray;
     }
 
+    /**
+     * Calculates payouts for each line based on the spin result.
+     * Determines how many symbols align in each line and calculates their payout.
+     * @param {number[][]} result - A 2D array representing the spin result by row and column.
+     * @returns {LinePayout[]} An array of line payout objects containing symbols and payout amounts.
+     */
     private calculateLinePayouts(result: number[][]): LinePayout[] {
         const linePayouts = [];
 
@@ -58,6 +83,10 @@ class Slot {
         return linePayouts;
     }
 
+    /**
+     * Executes a spin on the slot machine.
+     * Generates random symbols for each reel, calculates payouts, and displays the results.
+     */
     public spin(): void {
         const resultReels: number[][] = [];
 
@@ -72,6 +101,10 @@ class Slot {
         this.printPayouts(payouts);
     }
 
+    /**
+     * Prints the spin result as a table to the console.
+     * @param {number[][]} result - A 2D array representing the spin result by row and column.
+     */
     private printResult(result: number[][]): void {
         console.log();
 
@@ -79,6 +112,10 @@ class Slot {
         console.table(result);
     }
 
+    /**
+     * Prints detailed payout information for each line and the total payout to the console.
+     * @param {LinePayout[]} payouts - An array of line payout objects containing symbols and payout amounts.
+     */
     private printPayouts(payouts: LinePayout[]): void {
         console.log('Line payouts:');
         payouts.forEach(payout => {
@@ -97,6 +134,12 @@ class Slot {
         console.log();
     }
 
+    /**
+     * Calculates the total payout from an array of line payouts.
+     * Updates the total winnings and win count if the payout is greater than 0.
+     * @param {LinePayout[]} payouts - An array of line payout objects containing symbols and payout amounts.
+     * @returns {number} The total payout for the spin.
+     */
     private getTotalPayout(payouts: LinePayout[]): number {
         let totalPayout = 0;
 
