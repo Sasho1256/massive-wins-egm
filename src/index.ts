@@ -19,17 +19,18 @@ const play = () => {
                 play();
                 break;
             case 'sim':
+                const simSlot = new Slot();
                 const iterations = 500
                 const startTime = performance.now();
                 for (let i = 0; i < iterations; i++) {
-                    slotGame.spin()
+                    simSlot.spin()
                     console.clear();
                 }
                 const endTime = performance.now();
                 console.log('Simulations count: ' + iterations);
-                console.log('Times won: ' + slotGame.getWinsCount());
-                console.log('Total payout: ' + slotGame.getTotalWinAmount());
-                console.log('Win rate: ' + Math.round(slotGame.getWinsCount() / iterations * 100) + '%');
+                console.log('Times won: ' + simSlot.getWinsCount());
+                console.log('Total payout: ' + simSlot.getTotalWinAmount());
+                console.log('Win rate: ' + Math.round(simSlot.getWinsCount() / iterations * 100) + '%');
                 console.log('Execution time: ' + (endTime - startTime) + ' ms');
                 play();
                 break;
