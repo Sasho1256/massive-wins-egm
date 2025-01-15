@@ -1,0 +1,33 @@
+
+---
+
+### .gitignore
+
+```plaintext
+# Node.js dependencies
+node_modules/
+
+# Build files
+dist/
+out/
+*.js
+*.js.map
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Logs and system files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+
+# Environment files
+.env
+.env.local
+
+# IDE settings
+.vscode/
+.idea/
+
+coverage/
