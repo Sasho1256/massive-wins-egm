@@ -39,7 +39,11 @@ npm install
 ```bash
 npx ts-node src/index.ts
 ```
-- The game will output the spin results (reels and symbols), line payouts and the total payout to the console.
+
+- **Game modes**:
+    - Normal mode - Just press Enter on your keyboard, without typing anything in the console and the game will output the spin results (reels and symbols), line payouts and the total payout to the console.
+    - Simulation mode - Type 'sim' in the console and press Enter on your keyboard to make the program run multiple spins and output useful information and statistics about the games that played out (Total wins, Win rate, Execution time etc.).
+    - Exit - To exit the game just type 'x' in the console and press Enter.
 
 ### Testing the project
 
